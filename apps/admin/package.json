@@ -33,6 +33,7 @@
     "@celeris/request": "workspace:*",
     "@celeris/styles": "workspace:*",
     "@celeris/utils": "workspace:*",
+    "@depay/web3-wallets": "^17.1.0",
     "@tanstack/query-persist-client-core": "^5.45.0",
     "@tanstack/query-sync-storage-persister": "^5.45.0",
     "@tanstack/vue-query": "^5.45.0",

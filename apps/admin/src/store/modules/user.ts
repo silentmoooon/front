@@ -1,11 +1,14 @@
 import type { MessageMode } from "@celeris/request";
 import type { UserInfo } from "@celeris/types/src/user";
+import type { BaseData } from "@celeris/types/src/baseData";
+import type { TokenInfo } from "@celeris/admin-api/models/auth/TokenInfo";
 import { defineStore } from "pinia";
 import { field, getErrorMessage, logger } from "@celeris/utils";
 import type { RoleConstants } from "@celeris/constants";
 import { PageConstants, PermissionCacheTypeConstants } from "@celeris/constants";
 import { APP_USER_STORE_ID } from "../constants";
 import { loginApi, logoutApi, userInfoApi } from "~/apis/internal/auth";
+
 import type { LoginParams } from "~/apis/internal/auth";
 import { DEFAULT_PROJECT_SETTING } from "~/setting/projectSetting";
 import { router } from "~/router";
@@ -24,6 +27,8 @@ interface UserState {
   // User's token obtained after logging in
   // 用户登录后获取的 Token 令牌
   token?: string;
+
+  tokenInfo?: TokenInfo;
 
   // User's refresh token obtained after logging in
   // 用户登录后获取的刷新 Token
@@ -128,8 +133,9 @@ export const useUserStore = defineStore({
     },
     // Set user token
     // 设置用户 Token
-    setToken(token: string | undefined) {
-      this.token = token;
+    setToken(token: TokenInfo) {
+      this.token = token.tokenValue;
+      this.tokenInfo = token;
     },
     // Set user refresh token
     // 设置用户刷新 Token
@@ -167,24 +173,24 @@ export const useUserStore = defineStore({
     /**
      * Logs the user in and retrieves their information.
      * 登录用户并获取其信息。
-     * @param {object} payload - Login parameters and options.
-     * @param {string} payload.username - The username of the user.
-     * @param {string} payload.password - The password of the user.
-     * @param {boolean} payload.remember - Whether to remember the user. 是否记住用户
-     * @param {boolean} [payload.redirectToHome] - Whether to redirect to the home page after login. 登录后是否重定向到首页
-     * @param {MessageMode} [payload.errorMessageMode] - The error message display mode.
+     * @param {string} walletAddress - The username of the user.
+     * @param {string} signature- The password of the user.
+     * @param {string} walletName- The password of the user.
+     * @param {string} walletType- The password of the user.
+     * @param {string} loginText- Whether to remember the user. 是否记住用户
      * @returns {Promise<UserInfo|null>} The user's information or null if there was an error.
      */
-    async login(payload: LoginParams & {
-      remember: boolean;
-      redirectToHome?: boolean;
-      errorMessageMode?: MessageMode;
-    }) {
+    async login(payload:
+            { walletAddress: string; signature: string; plainText: string; walletName: string; walletType: string }) {
       try {
-        const { errorMessageMode, redirectToHome = true, ...loginParams } = payload;
-        const { token } = await loginApi(loginParams, errorMessageMode);
-        this.setToken(token);
-        return this.performAfterLoginAction(redirectToHome);
+        const data = await loginApi(payload);
+        console.log("data", data);
+        if (!data) {
+          return;
+        }
+        this.setToken(data);
+        this.performAfterLoginAction();
+        return data;
       } catch (error) {
         return Promise.reject(error);
       }
@@ -194,25 +200,10 @@ export const useUserStore = defineStore({
         return null;
       }
       this.setShouldLoggedIn(true);
-      const userInfo = await this.getUserInfoAction();
-      const shouldPasswordExpired = this.shouldPasswordExpired;
-      if (shouldPasswordExpired) {
-        this.setShouldPasswordExpired(false);
-      } else {
-        const permissionStore = usePermissionStore();
-        if (!permissionStore.shouldAddRouteDynamically) {
-          const routes = await permissionStore.buildRoutesAction();
-          routes.forEach((route) => {
-            router.addRoute(route);
-          });
-          router.addRoute(PAGE_NOT_FOUND_ROUTE);
-          permissionStore.setShouldAddRouteDynamically(true);
-        }
-        if (redirectToHome) {
-          await router.replace(userInfo?.homePageUrl || PageConstants.BASE_HOME);
-        }
+
+      if (redirectToHome) {
+        await router.replace(PageConstants.BASE_HOME);
       }
-      return userInfo;
     },
     /**
      * Retrieves the user's information.

@@ -153,9 +153,9 @@
         "resetLinkSentMessage": "Reset Link sent",
         "signUp": "Sign up",
         "backToSignIn": "Back to Sign in",
-        "signIn": "Sign in",
+        "signIn": "Sign in With Wallet",
         "remember": "Remember me",
-        "loginButton": "Sign in",
+        "loginButton": "Sign in With Wallet",
         "registerButton": "Create an account",
         "forgetPassword": "Forgot password",
         "incorrectAccountOrPassword": "Incorrect account or password!"

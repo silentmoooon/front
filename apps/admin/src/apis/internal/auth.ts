@@ -1,11 +1,12 @@
-import type { FakeUserInfo } from "@celeris/admin-api/models/auth/FakeUserInfo";
+import type { TokenInfo } from "@celeris/admin-api/models/auth/TokenInfo";
+import type { BaseData } from "@celeris/types/src/baseData";
 import type { UserInfo } from "@celeris/types";
 import type { MessageMode } from "@celeris/request";
 import { request } from "@celeris/request";
 
 // Define the API endpoint URLs as an enum
 enum API {
-  Login = "/auth/login",
+  Login = "/login/wallet",
   Logout = "/auth/logout",
   UserInfo = "/user/info",
   PermissionCode = "/auth/permission-code",
@@ -17,13 +18,18 @@ export interface LoginParams {
   password: string;
 }
 
+export interface WalletLoginParams {
+  username: string;
+  password: string;
+}
+
 // Define a function to call the login API
 export function loginApi(
-  params: LoginParams,
+  params: { walletAddress: string; signature: string; plainText: string; walletName: string; walletType: string },
   errorMessageMode: MessageMode = "dialog",
 ) {
   // Make a POST request to the login API endpoint with the given parameters
-  return request.post<Omit<FakeUserInfo, "extraInfo">>(
+  return request.post<BaseData<TokenInfo>>(
     {
       url: API.Login,
       params,

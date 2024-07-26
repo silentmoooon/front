@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import type { FormInst, FormRules } from "naive-ui";
 import { useI18n } from "@celeris/locale";
+import { getWallets, wallets } from "@depay/web3-wallets";
 import { useUserStore } from "~/store/modules/user";
-
-// 登录表单数据
-import type { SignInFromType } from "~/pages/login/types";
 
 const emit = defineEmits<{
   (e: "forgot-password"): void;
@@ -33,18 +31,37 @@ const loginFormRef = ref<HTMLElement & FormInst>();
 async function signIn(e: Event) {
   e.preventDefault();
   try {
-    // Validate the login form
-    await loginFormRef.value?.validate();
+    const availableWallets = await getWallets();
+    console.log("availableWallets", availableWallets.length);
+    let wallet;
+    if (availableWallets.length === 1) {
+      wallet = availableWallets[0];
+    } else if (availableWallets.length > 1) {
+      wallet = availableWallets[Number.parseInt(prompt("Which wallet do you want to connect?"), 10)];
+    } else {
+      // Let the user choose:
+      // you can still try to connect via wallets.WalletConnect.connect()
+      // or wallets.WalletLink.connect()
+      wallet = wallets.WalletLink;
+    }
+
+    const accounts = await wallet.connect();
+    const loginText = "this is a login message with unuspay";
+    const signature = await wallet.sign(loginText);
 
     loading.value = true;
 
     try {
       // Login the user
       const userInfo = await useUserStore().login({
-        ...unref(loginFormModel),
-        remember: true,
-        errorMessageMode: "none",
+        walletAddress: accounts,
+        signature,
+        plainText: loginText,
+        walletName: wallet.name,
+        walletType: wallet.name,
+
       });
+      console.log("userInfo", userInfo);
       if (userInfo) {
         notification.success({
           title: t("page.login.notification.loginSuccessMessage"),
@@ -52,6 +69,7 @@ async function signIn(e: Event) {
         });
       }
     } catch (error) {
+      console.log("error", error);
       message.error(t("page.login.form.incorrectAccountOrPassword"));
     }
   } finally {
@@ -61,35 +79,9 @@ async function signIn(e: Event) {
 </script>
 
 <template>
-  <NForm ref="loginFormRef" :model="loginFormModel" :rules="loginRules">
-    <NFormItem path="username" :label="t('page.login.form.username.label')">
-      <NInput
-        v-model:value="loginFormModel.username" :placeholder="t('page.login.form.username.placeholder')" size="large" autocomplete="on"
-        @keydown.enter="signIn"
-      />
-    </NFormItem>
-    <NFormItem path="password" :label="t('page.login.form.password.label')">
-      <NInput
-        v-model:value="loginFormModel.password" type="password" :placeholder="t('page.login.form.password.placeholder')"
-        show-password-on="click" autocomplete="on"
-        size="large"
-        @keydown.enter="signIn"
-      />
-    </NFormItem>
-    <div class="flex flex-col items-end gap-6">
-      <div class="flex justify-between w-full">
-        <NCheckbox size="large">
-          {{ t('page.login.form.remember') }}
-        </NCheckbox>
-        <NButton text type="primary" @click="emit('forgot-password')">
-          {{ t('page.login.form.forgetPassword') }}
-        </NButton>
-      </div>
-      <div class="w-full">
-        <NButton type="primary" :loading="loading" class="w-full!" size="large" @click="signIn">
-          {{ t('page.login.form.loginButton') }}
-        </NButton>
-      </div>
-    </div>
-  </NForm>
+  <div class="w-full">
+    <NButton type="primary" :loading="loading" class="w-full!" size="large" @click="signIn">
+      {{ t('page.login.form.loginButton') }}
+    </NButton>
+  </div>
 </template>
