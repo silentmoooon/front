@@ -4,6 +4,11 @@ export default kirklin({
   rules: {
     "new-cap": "warn",
   },
+  // 或自定义风格规则
+  stylistic: {
+    indent: 4, // 4或'tab'
+  },
+
   formatters: {
     /**
      * 格式化CSS、LESS、SCSS文件，以及Vue中的`<style>`块

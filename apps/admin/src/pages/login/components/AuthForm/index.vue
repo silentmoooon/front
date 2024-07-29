@@ -8,93 +8,68 @@ import ForgotPassword from "~/pages/login/components/AuthForm/components/ForgotP
 import type { AuthFormType } from "~/pages/login/types";
 
 const props = defineProps<{
-  type?: AuthFormType;
+    type?: AuthFormType;
 }>();
 const { t } = useI18n();
 const typeRef = ref<AuthFormType>("signIn");
 
 const title = computed<string>(() =>
-  typeRef.value === "signIn" ? t("page.login.form.welcomeBackTitle") : typeRef.value === "signUp" ? t("page.login.form.helloTitle") : t("page.login.form.forgotPasswordTitle"),
+    typeRef.value === "signIn" ? t("page.login.form.welcomeBackTitle") : typeRef.value === "signUp" ? t("page.login.form.helloTitle") : t("page.login.form.forgotPasswordTitle"),
 );
 
 // 计算属性，获取应用程序名称
 const applicationName = computed(() => String(import.meta.env.VITE_GLOB_APP_TITLE));
 
 function gotoSignIn() {
-  typeRef.value = "signIn";
+    typeRef.value = "signIn";
 }
 function gotoSignUp() {
-  typeRef.value = "signUp";
+    typeRef.value = "signUp";
 }
 function gotoForgotPassword() {
-  typeRef.value = "forgotPassword";
+    typeRef.value = "forgotPassword";
 }
 
 onBeforeMount(() => {
-  if (props.type) {
-    typeRef.value = props.type;
-  }
+    if (props.type) {
+        typeRef.value = props.type;
+    }
 });
 </script>
 
 <template>
-  <div class="auth-form-wrap w-full ">
-    <CAAppLogo class="mb-4" display-title :application-name="applicationName" />
-    <div class="title mb-4 text-3xl font-bold">
-      {{ title }}
-    </div>
-    <div class="text mb-12 text-xl">
-      {{ t('page.login.form.greetingText') }}
-    </div>
+    <div class="auth-form-wrap w-full ">
+        <CAAppLogo class="mb-4" display-title :application-name="applicationName" />
+        <div class="title mb-4 text-3xl font-bold">
+            {{ title }}
+        </div>
+        <div class="text mb-12 text-xl">
+            {{ t('page.login.form.greetingText') }}
+        </div>
 
-    <div class="form">
-      <Transition appear :name="RouterTransitionConstants.FADE_SLIDE" mode="out-in">
-        <SignIn v-if="typeRef === 'signIn'" key="signin" @forgot-password="gotoForgotPassword()" />
-        <ForgotPassword v-else-if="typeRef === 'forgotPassword'" key="forgotpassword" />
-        <SignUp v-else-if="typeRef === 'signUp'" key="signup" />
-      </Transition>
-    </div>
+        <div class="form">
+            <Transition appear :name="RouterTransitionConstants.FADE_SLIDE" mode="out-in">
+                <SignIn v-if="typeRef === 'signIn'" key="signin" @forgot-password="gotoForgotPassword()" />
+                <!-- <ForgotPassword v-else-if="typeRef === 'forgotPassword'" key="forgotpassword" />
+                <SignUp v-else-if="typeRef === 'signUp'" key="signup" /> -->
+            </Transition>
+        </div>
 
-    <NDivider title-placement="center">
-      Or
-    </NDivider>
+        <NDivider title-placement="center">
+            Or
+        </NDivider>
 
-    <div class="social-button-group flex flex-col gap-4 mb-12">
-      <NButton strong secondary size="large">
-        <CAIcon icon="tabler:brand-qq" class="mr-4" />
-        {{ t('page.login.form.socialButtons.signInWithQQ') }}
-      </NButton>
-      <NButton strong secondary>
-        <CAIcon icon="tabler:brand-wechat" class="mr-4" />
-        {{ t('page.login.form.socialButtons.signInWithWeChat') }}
-      </NButton>
+        <div class="social-button-group flex flex-col gap-4 mb-12">
+            <NButton strong secondary size="large">
+                {{ t('page.login.form.socialButtons.signInWithEmail') }}
+            </NButton>
+        </div>
     </div>
-
-    <div class="sign-text text-center">
-      <div v-if="typeRef === 'signIn'" class="sign-text">
-        {{ t('page.login.form.signText.signIn') }}
-        <NButton text type="primary" size="large" @click="gotoSignUp()">
-          {{ t('page.login.form.signUp') }}
-        </NButton>
-      </div>
-      <div v-if="typeRef === 'forgotPassword'" class="sign-text">
-        <NButton text type="primary" size="large" @click="gotoSignIn()">
-          {{ t('page.login.form.signText.forgotPassword') }}
-        </NButton>
-      </div>
-      <div v-if="typeRef === 'signUp'" class="sign-text">
-        {{ t('page.login.form.signText.signUp') }}
-        <NButton text type="primary" size="large" @click="gotoSignIn()">
-          {{ t('page.login.form.signIn') }}
-        </NButton>
-      </div>
-    </div>
-  </div>
 </template>
 
 <style scoped>
 .form-wrap {
-  min-width: 270px;
-  max-width: 400px;
+    min-width: 270px;
+    max-width: 400px;
 }
 </style>
