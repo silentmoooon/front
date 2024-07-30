@@ -1,5 +1,4 @@
-// eslint-disable-next-line ts/no-require-imports,ts/no-var-requires
-const pick = require("lodash/pick.js");
+import pick from "lodash/pick.js";
 
 /**
  * Utility function to determine the raw type of a value.
@@ -59,18 +58,18 @@ export function defineConstants<T extends object, K extends ValidKeys<T>, V exte
  * @returns An array or object containing the extracted values. 包含提取值的数组或对象。
  */
 export function defineConstants<T extends object, K extends keyof T, V extends keyof T>(items: T[], key: K, values?: V | V[]) {
-  if (typeof values === "undefined") {
-    return items.map(item => item[key]);
-  }
-
-  return items.reduce((map, item) => {
-    const _key = item[key];
-    if (!isPropertyKey(_key)) {
-      return map;
+    if (typeof values === "undefined") {
+        return items.map(item => item[key]);
     }
 
-    const _val = Array.isArray(values) ? pick(item, values) : item[values];
+    return items.reduce((map, item) => {
+        const _key = item[key];
+        if (!isPropertyKey(_key)) {
+            return map;
+        }
 
-    return { ...map, [_key]: _val };
-  }, {});
+        const _val = Array.isArray(values) ? pick(item, values) : item[values];
+
+        return { ...map, [_key]: _val };
+    }, {});
 }

@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import type { FormInst, FormRules } from "naive-ui";
 import { useI18n } from "@celeris/locale";
-import { getWallets, wallets } from "@depay/web3-wallets";
 import DePayWidgets from "@celeris/widgets";
-import { Web3 } from "web3";
 import base58 from "bs58";
 import { useUserStore } from "~/store/modules/user";
 
@@ -13,11 +10,7 @@ const emit = defineEmits<{
 
 const { t } = useI18n();
 
-const message = useMessage();
-const notification = useNotification();
-
 const loading = ref<boolean>(false);
-
 /**
  * This function handles the login process
  */
@@ -27,7 +20,7 @@ async function signIn(e: Event) {
         const { wallet, account } = await DePayWidgets.Connect({});
         console.log("wallet", wallet);
 
-        const loginText = "this is a login message with unuspay";
+        const loginText = `Click to login to unuspay\n${account}\n${new Date().getTime()}`;
         loading.value = true;
         await DePayWidgets.Login({
             message: loginText,
