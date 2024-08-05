@@ -128,6 +128,9 @@ importers:
       '@celeris/widgets':
         specifier: workspace:*
         version: link:../../packages/web/widgets
+      '@depay/buttons':
+        specifier: ^12.10.10
+        version: 12.10.10(@babel/core@7.24.7)(bufferutil@4.0.8)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(ioredis@5.3.2)(react-dom@18.3.1(react@18.2.0))(react@18.2.0)(utf-8-validate@5.0.10)
       '@depay/web3-wallets':
         specifier: ^17.1.0
         version: 17.1.0(@depay/coinbase-wallet-sdk@3.8.4(@babel/core@7.24.7)(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@depay/solana-web3.js@1.26.0)(@depay/walletconnect-v2@2.12.2(bufferutil@4.0.8)(ioredis@5.3.2)(utf-8-validate@5.0.10))(@depay/web3-blockchains@9.4.2)(@depay/web3-client@10.18.7(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)))(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))
@@ -1771,6 +1774,12 @@ packages:
   '@cypress/xvfb@1.2.4':
     resolution: {integrity: sha512-skbBzPggOVYCbnGgV+0dmBdW/s77ZkAOXIC1knS8NagwDjBrNC1LuXtQJeiN6l+m7lzmHtaoUw/ctJKdqkG57Q==}
 
+  '@depay/buttons@12.10.10':
+    resolution: {integrity: sha512-4Pl7hqwhT2lU6x1MD/WHTxSn3MctD5SmhH+/jHqBoxSd4XNenZyRqhS7Zu5u8QtlcEMozUfRrpDpPBaOm5lbXQ==}
+    peerDependencies:
+      react: ^18
+      react-dom: ^18
+
   '@depay/coinbase-wallet-sdk@3.8.4':
     resolution: {integrity: sha512-h0Q+Uv6VIT7h1gOqpUNzmjNg7yp2mOK3vtQF466ySYmFaY0KB75h9Y/PZ3TF5/Rng+2iE3Jk/9T2XC6qoLUMcQ==}
 
@@ -1887,6 +1896,24 @@ packages:
       '@depay/web3-blockchains': ^9.2.5
       '@depay/web3-client': ^10.18.5
       ethers: ^5.7.1
+
+  '@depay/web3-wallets@17.2.0':
+    resolution: {integrity: sha512-mE9aCV7oiP6rj0yQ+Tuk/IZtt4tyf2YoQYd66OGrr3rxNFYl0jNdfqNYGBsOeV6ZYWE+xQ+zZWhvE85tKWkyVw==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      '@depay/coinbase-wallet-sdk': ^3.8.4
+      '@depay/solana-web3.js': ^1.26.0
+      '@depay/walletconnect-v2': ^2.12.2
+      '@depay/web3-blockchains': ^9.2.5
+      '@depay/web3-client': ^10.18.5
+      ethers: ^5.7.1
+
+  '@depay/widgets@12.12.0':
+    resolution: {integrity: sha512-7gsQxZO+q6EaO6g6ufb3LaTNgoWZEgUsSLuEzDZbUUaB22eOyh43Nv8SwasvzYQamSzuDPGT9JaFO3WtYFrOJg==}
+    peerDependencies:
+      ethers: ^5.7.1
+      react: ^18
+      react-dom: ^18
 
   '@dprint/formatter@0.3.0':
     resolution: {integrity: sha512-N9fxCxbaBOrDkteSOzaCqwWjso5iAe+WJPsHC021JfHNj2ThInPNEF13ORDKta3llq5D1TlclODCvOvipH7bWQ==}
@@ -11775,6 +11802,35 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@depay/buttons@12.10.10(@babel/core@7.24.7)(bufferutil@4.0.8)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(ioredis@5.3.2)(react-dom@18.3.1(react@18.2.0))(react@18.2.0)(utf-8-validate@5.0.10)':
+    dependencies:
+      '@depay/react-shadow-dom': 5.0.5(react-dom@18.3.1(react@18.2.0))(react@18.2.0)
+      '@depay/web3-blockchains': 9.4.2
+      '@depay/widgets': 12.12.0(@babel/core@7.24.7)(bufferutil@4.0.8)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(ioredis@5.3.2)(react-dom@18.3.1(react@18.2.0))(react@18.2.0)(utf-8-validate@5.0.10)
+      react: 18.2.0
+      react-dom: 18.3.1(react@18.2.0)
+    transitivePeerDependencies:
+      - '@azure/app-configuration'
+      - '@azure/cosmos'
+      - '@azure/data-tables'
+      - '@azure/identity'
+      - '@azure/keyvault-secrets'
+      - '@azure/storage-blob'
+      - '@babel/core'
+      - '@capacitor/preferences'
+      - '@netlify/blobs'
+      - '@planetscale/database'
+      - '@react-native-async-storage/async-storage'
+      - '@upstash/redis'
+      - '@vercel/kv'
+      - bufferutil
+      - encoding
+      - ethers
+      - ioredis
+      - supports-color
+      - uWebSockets.js
+      - utf-8-validate
+
   '@depay/coinbase-wallet-sdk@3.8.4(@babel/core@7.24.7)(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
       '@coinbase/wallet-sdk': 3.6.4(@babel/core@7.24.7)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
@@ -11901,6 +11957,61 @@ snapshots:
       '@depay/web3-blockchains': 9.4.2
       '@depay/web3-client': 10.18.7(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))
       ethers: 5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+
+  '@depay/web3-wallets@17.2.0(@depay/coinbase-wallet-sdk@3.8.4(@babel/core@7.24.7)(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@depay/solana-web3.js@1.26.0)(@depay/walletconnect-v2@2.12.2(bufferutil@4.0.8)(ioredis@5.3.2)(utf-8-validate@5.0.10))(@depay/web3-blockchains@9.4.2)(@depay/web3-client@10.18.7(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)))(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))':
+    dependencies:
+      '@depay/coinbase-wallet-sdk': 3.8.4(@babel/core@7.24.7)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@depay/solana-web3.js': 1.26.0
+      '@depay/walletconnect-v2': 2.12.2(bufferutil@4.0.8)(ioredis@5.3.2)(utf-8-validate@5.0.10)
+      '@depay/web3-blockchains': 9.4.2
+      '@depay/web3-client': 10.18.7(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))
+      ethers: 5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+
+  '@depay/widgets@12.12.0(@babel/core@7.24.7)(bufferutil@4.0.8)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(ioredis@5.3.2)(react-dom@18.3.1(react@18.2.0))(react@18.2.0)(utf-8-validate@5.0.10)':
+    dependencies:
+      '@depay/coinbase-wallet-sdk': 3.8.4(@babel/core@7.24.7)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@depay/js-verify-signature-web': 3.1.8
+      '@depay/local-currency': 3.8.0
+      '@depay/react-dialog-stack': 8.1.1(react-dom@18.3.1(react@18.2.0))(react@18.2.0)
+      '@depay/react-shadow-dom': 5.0.5(react-dom@18.3.1(react@18.2.0))(react@18.2.0)
+      '@depay/react-token-image': 5.0.1(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(@depay/web3-client@10.18.7(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)))(@depay/web3-tokens@10.3.0(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(@depay/web3-client@10.18.7(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)))(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)))(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(react-dom@18.3.1(react@18.2.0))(react@18.2.0)
+      '@depay/solana-web3.js': 1.26.0
+      '@depay/walletconnect-v2': 2.12.2(bufferutil@4.0.8)(ioredis@5.3.2)(utf-8-validate@5.0.10)
+      '@depay/web3-assets': 7.3.1(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(@depay/web3-client@10.18.7(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)))(@depay/web3-tokens@10.3.0(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(@depay/web3-client@10.18.7(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)))(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)))
+      '@depay/web3-blockchains': 9.4.2
+      '@depay/web3-client': 10.18.7(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))
+      '@depay/web3-exchanges': 13.8.4(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(@depay/web3-client@10.18.7(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)))(@depay/web3-tokens@10.3.0(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(@depay/web3-client@10.18.7(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)))(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)))(decimal.js@10.4.3)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))
+      '@depay/web3-payments': 13.9.2(rdtyvdpj735bf2oyfkw7a53kzq)
+      '@depay/web3-tokens': 10.3.0(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(@depay/web3-client@10.18.7(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)))(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))
+      '@depay/web3-wallets': 17.2.0(@depay/coinbase-wallet-sdk@3.8.4(@babel/core@7.24.7)(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@depay/solana-web3.js@1.26.0)(@depay/walletconnect-v2@2.12.2(bufferutil@4.0.8)(ioredis@5.3.2)(utf-8-validate@5.0.10))(@depay/web3-blockchains@9.4.2)(@depay/web3-client@10.18.7(@depay/solana-web3.js@1.26.0)(@depay/web3-blockchains@9.4.2)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)))(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))
+      '@tanstack/react-virtual': 3.8.3(react-dom@18.3.1(react@18.2.0))(react@18.2.0)
+      '@uiw/copy-to-clipboard': 1.0.17
+      decimal.js: 10.4.3
+      ethers: 5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      fuse.js: 6.6.2
+      qr-code-styling: 1.6.0-rc.1
+      react: 18.2.0
+      react-dom: 18.3.1(react@18.2.0)
+    transitivePeerDependencies:
+      - '@azure/app-configuration'
+      - '@azure/cosmos'
+      - '@azure/data-tables'
+      - '@azure/identity'
+      - '@azure/keyvault-secrets'
+      - '@azure/storage-blob'
+      - '@babel/core'
+      - '@capacitor/preferences'
+      - '@netlify/blobs'
+      - '@planetscale/database'
+      - '@react-native-async-storage/async-storage'
+      - '@upstash/redis'
+      - '@vercel/kv'
+      - bufferutil
+      - encoding
+      - ioredis
+      - supports-color
+      - uWebSockets.js
+      - utf-8-validate
 
   '@dprint/formatter@0.3.0': {}
 

@@ -1,4 +1,5 @@
 import type { TokenInfo } from "@celeris/admin-api/models/auth/TokenInfo";
+import type { Request } from "@celeris/admin-api/models/pay/Request";
 import type { BaseData } from "@celeris/types/src/baseData";
 import type { UserInfo } from "@celeris/types";
 import type { MessageMode } from "@celeris/request";
@@ -33,7 +34,7 @@ export function RequestApi(
     errorMessageMode: MessageMode = "dialog",
 ) {
     // Make a GET request to the logout API endpoint
-    return request.get<void>(
+    return request.get<BaseData<Request>>(
         {
             url: API.Request + id,
         },

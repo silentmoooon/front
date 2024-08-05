@@ -34,6 +34,7 @@
         "@celeris/styles": "workspace:*",
         "@celeris/utils": "workspace:*",
         "@celeris/widgets": "workspace:*",
+        "@depay/buttons": "^12.10.10",
         "@depay/web3-wallets": "^17.1.0",
         "@tanstack/query-persist-client-core": "^5.45.0",
         "@tanstack/query-sync-storage-persister": "^5.45.0",

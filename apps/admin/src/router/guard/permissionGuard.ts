@@ -7,7 +7,7 @@ import { useUserStoreWithOut } from "~/store/modules/user";
 
 const LOGIN_PATH = PageConstants.BASE_LOGIN;
 const ROOT_PATH = RootRoute.path;
-const whitePathList: PageConstants[] = [LOGIN_PATH];
+const whitePathList: PageConstants[] = [LOGIN_PATH, PageConstants.PAY_REQUEST, PageConstants.PAY_LINK];
 export function createPermissionGuard(router: Router) {
     const userStore = useUserStoreWithOut();
     const permissionStore = usePermissionStoreWithOut();
@@ -24,6 +24,8 @@ export function createPermissionGuard(router: Router) {
 
         const token = userStore.getToken;
         // Whitelist can be directly entered
+        console.log("whitePathList", whitePathList);
+        console.log("whitePathList", to.path);
         if (whitePathList.includes(to.path as PageConstants)) {
             if (to.path === LOGIN_PATH && token) {
                 const shouldPasswordExpired = userStore.getShouldPasswordExpired;
